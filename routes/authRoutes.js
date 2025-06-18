@@ -2,19 +2,35 @@
 
 const express = require("express");
 const router = express.Router();
+const sqlite3 = require("sqlite3").verbose();
+
+require("dotenv").config();
+
+//Connect to database
+const db = new sqlite3.Database(process.env.DATABASE);
+
 
 //Add new user, häruppe kanske man vill ha mer som email med mera
 router.post("/register", async (req, res) => {
     try {
-        const {username, password} = req.body
+        const {username, password, email} = req.body
 
         //Validering
-        if (!username || !password) {
+        if (!username || !password || !email) {
             return res.status(400).json({error: "username or password is incorrect, password needs to be ... etc"});            
         }
+        // Does user already exists? Felmeddelande!!
 
         //if correct save user
-        res.status(201).json({message: "User created"})
+        const sql = `INSERT INTO users(username, password, email) VALUES(?,?,?)`
+        db.run (sql, [username, password, email], (error) => {
+            if (error) {
+                     res.status(400).json({error: "Fel när användare läggs till"});
+            } else {
+                   res.status(201).json({message: "User created"});
+            }
+        })
+     
 
     } catch (error) {
         res.status(500).json( {error: "fel pa server"})

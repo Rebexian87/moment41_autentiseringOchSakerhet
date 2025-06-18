@@ -3,6 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
+const bcrypt = require("bcrypt");
 
 require("dotenv").config();
 
@@ -21,9 +22,13 @@ router.post("/register", async (req, res) => {
         }
         // Does user already exists? Felmeddelande!!
 
+        //Hash password
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
         //if correct save user
         const sql = `INSERT INTO users(username, password, email) VALUES(?,?,?)`
-        db.run (sql, [username, password, email], (error) => {
+        db.run (sql, [username, hashedPassword, email], (error) => {
             if (error) {
                      res.status(400).json({error: "Fel när användare läggs till"});
             } else {

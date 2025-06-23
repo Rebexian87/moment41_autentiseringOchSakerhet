@@ -53,13 +53,32 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({error: "username or password is incorrect, password needs to be ... etc"});            
         }
 
-        //if correct check credentials
+   
+        //Check credentials
 
-        if(username === "rebecca" && password === "rebecca") {
-             res.status(200).json({message: "Login successful"})
-        } else {
-            res.status(401).json({error: "invalid username/password  /  credentials"})
-        }
+        //Check if user exists
+        const sql = `SELECT * FROM users WHERE username=?`;
+        db.get(sql, [username], async (error, row) => {
+            if (error) {
+                  res.status(400).json({message: "Error when autehent..."})
+            }else if(!row) {
+                 res.status(401).json({message: "Incorrect Username/Password!"})
+            } else {
+
+                //user exist--check username/password
+                const passwordMatch = await bcrypt.compare(password, row.password);
+
+                if(!passwordMatch) {
+                      res.status(401).json({message: "Incorrect Username/Password!"})
+                } else{
+                    //Correct login
+                    res.status(200).json({message: "Correct login!"})
+                }
+
+            }
+
+        })
+
 
     } catch (error) {
         res.status(500).json( {error: "fel pa server"})

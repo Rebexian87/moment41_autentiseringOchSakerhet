@@ -13,6 +13,8 @@ db.serialize(() => {
 
 db.run("DROP TABLE IF EXISTS users");
 
+db.run("DROP TABLE IF EXISTS flags");
+
 //Create table, bra med id så man inte behöver använda användarnamnet när man pratar om sina användare
 db.run(`CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,6 +25,14 @@ db.run(`CREATE TABLE users (
 )`
 );
 console.log("Table created");
+
+db.run(`CREATE TABLE flags (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    country VARCHAR(255) NOT NULL UNIQUE,
+    colors VARCHAR(255) NOT NULL,
+    created DATETIME DEFAULT CURRENT_TIMESTAMP
+)`
+);
 
 
 });

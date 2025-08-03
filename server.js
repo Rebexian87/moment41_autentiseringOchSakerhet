@@ -42,6 +42,65 @@ function authenticateToken(req,res,next) {
 
 }
 
+
+//Skapa ny flagga (POST)
+app.post ("/api/flags", (req, res) => {
+    let country = req.body.country;
+    let colors = req.body.colors;
+ 
+
+    //error handling, felhanterare som skapar felmeddelande
+
+    let errors= {
+        message: "",
+        detail: "",
+        https_response: {
+
+        }
+    }
+
+    if (!country|| !colors){
+        errors.message = "Country and colors not included";
+        errors.detail= "You must include colors and countrys in JSON"
+
+        errors.https_response.message = "Bad Request";
+        errors.https_response.code=400;
+
+        res.status(400).json(errors);
+        
+        
+        
+        return;    
+    
+    }
+
+    //Lägg till flagga till databasen om inget har gått fel, man har med alla data som man ska ha
+
+    connection.query(`INSERT INTO flags (country, colors) VALUES (?,?);`, [country, colors], 
+        (error, results) =>{
+            if(error) {
+                res.status(500).json({error: "Something went wrong"+error});
+                return;
+            }
+            console.log("Fråga skapad: " + results);
+    
+
+           let flag = {  
+            country: country,
+            colors: colors,
+          
+     
+         }
+     
+     
+         res.json({message: "Flag added", flag});
+        })
+
+
+});
+
+
+
 //Start application
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);    

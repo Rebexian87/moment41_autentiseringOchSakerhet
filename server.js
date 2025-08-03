@@ -99,6 +99,25 @@ app.post ("/api/flags", (req, res) => {
 
 });
 
+//Hämta alla flaggor (GET)
+app.get ("/api/flags", (req, res) => {
+   connection.query(`SELECT * FROM flags`, (error,results) => {
+    if(error) {
+        res.status(500).json({error: "Something went wrong"+error});
+        return;
+    }
+    console.log(results);
+    if(results.length ===0) {
+        res.status(404).json({message: "No flags found"})
+    } else {
+        res.json(results);
+    }
+    
+})
+   
+  
+});
+
 
 
 //Start application

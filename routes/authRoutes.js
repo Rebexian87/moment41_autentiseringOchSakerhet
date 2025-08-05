@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
 
+
 //Connect to database
 const db = new sqlite3.Database(process.env.DATABASE);
 
@@ -95,5 +96,12 @@ router.post("/login", async (req, res) => {
 
     
 });
+
+
+
+
+
+
+
 
 module.exports=router;

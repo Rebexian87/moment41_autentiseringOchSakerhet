@@ -51,7 +51,7 @@ function authenticateToken(req,res,next) {
 
 
 //Skapa ny flagga (POST)
-app.post ("/api/flags", async (req, res) => {  //authenticateToken,
+app.post ("/api/flags", authenticateToken, async (req, res) => {  //authenticateToken,
     try {const {country, colors} = req.body;
     // let country = req.body.country;
     // let colors = req.body.colors;

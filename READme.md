@@ -18,8 +18,8 @@ Nedan finns beskrivet hur man når APIet på olika vis:
 |-------|-------------|--------------------------------------------------------------------------------------|
 
 |POST   |/users    |Lagrar en ny arbetslivserfarenhet.      
-|GET    |/falgs    |Hämtar alla tillgängliga flaggor.                                      |
-|POST   |/users    |Lagrar en ny flagga.                                             |
+|GET    |/falgs    |Hämtar alla tillgängliga flaggor.                                      
+|POST   |/users    |Lagrar en ny flagga.                                             
                                     
 
 Ett objekt returneras/skickas som JSON med följande struktur:

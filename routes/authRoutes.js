@@ -17,11 +17,11 @@ router.post("/register", async (req, res) => {
     try {
         const {username, password, email} = req.body
 
+      
         //Validering
         if (!username || !password || !email) {
             return res.status(400).json({error: "username or password is incorrect, password needs to be ... etc"});            
         }
-        // Does user already exists? Felmeddelande!!
 
         //Hash password
 
@@ -31,6 +31,10 @@ router.post("/register", async (req, res) => {
         const sql = `INSERT INTO users(username, password, email) VALUES(?,?,?)`
         db.run (sql, [username, hashedPassword, email], (error) => {
             if (error) {
+                //Error if you try to create a user with the same usernamn
+                    if(error.code=="SQLITE_CONSTRAINT") {
+                        return res.status(400).json({error: "ANändarnamn är upptaget"}); 
+                    }
                      res.status(400).json({error: "Fel när användare läggs till"});
             } else {
                    res.status(201).json({message: "User created"});

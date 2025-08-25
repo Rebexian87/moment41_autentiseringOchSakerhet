@@ -11,7 +11,7 @@ require("dotenv").config();
 const authenticateToken=require("./middelware/authenticateToken.js")
 
 
-const port=process.env.PORT||3000;
+const port=process.env.PORT||3001;
 
 //Connect to database
 const db = new sqlite3.Database(process.env.DATABASE);

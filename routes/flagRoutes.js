@@ -63,7 +63,7 @@ router.post ("/flags", authenticateToken, async (req, res) => {  //authenticateT
          }
      
      
-         res.status(200).json({message: "Flag added"+flag}); //flag
+         res.status(200).json({message: "Flag added",flag}); //flag
     }})
         }catch {
             res.status(500).json ({error:"fel på flaggserver"})

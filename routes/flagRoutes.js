@@ -12,14 +12,9 @@ const authenticateToken=require("../middelware/authenticateToken.js")
 const db = new sqlite3.Database(process.env.DATABASE);
 
 
-
-
-
 //Skapa ny flagga (POST)
 router.post ("/flags", authenticateToken, async (req, res) => {  //authenticateToken,
     try {const {country, colors} = req.body;
-    // let country = req.body.country;
-    // let colors = req.body.colors;
  
 
     //error handling, felhanterare som skapar felmeddelande
@@ -50,15 +45,12 @@ router.post ("/flags", authenticateToken, async (req, res) => {  //authenticateT
         (error) =>{
             if(error) {
                 res.status(500).json({error: "Something went wrong"});
-                // return;
-            } else {
-            // console.log("Fråga skapad: " );
-    
+              
+            } else {         
 
-           let flag = {  
+            let flag = {  
             country: country,
-            colors: colors,
-          
+            colors: colors,        
      
          }
      
@@ -77,7 +69,7 @@ router.post ("/flags", authenticateToken, async (req, res) => {  //authenticateT
 
 
         //Hämta alla flaggor (GET)
-router.get ("/flags",async (req, res) => {  //authenticateToken,
+router.get ("/flags",async (req, res) => {  
     try {
     
      db.all("SELECT * FROM flags ORDER BY country;", (error,results)=> {

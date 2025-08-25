@@ -17,10 +17,10 @@ Nedan finns beskrivet hur man når APIet på olika vis:
 |Metod  |Ändpunkt     |Beskrivning                                                                           |
 |-------|-------------|--------------------------------------------------------------------------------------|
 
-|POST   |/users    |Lagrar en ny arbetslivserfarenhet.   |    
-|GET    |/flags    |Hämtar alla tillgängliga flaggor.     |                                  
-|POST   |/users    |Lagrar en ny flagga.      |                                        
-                                    
+                                       
+   |POST    |/users      |Lagrar en ny arbetslivserfarenhet.                                      |
+|GET  |/flags     |Hämtar alla tillgängliga flaggor.                                                    |
+|POST    |/flags |Lagrar en ny flagga.                        |                                 
 
 Ett objekt returneras/skickas som JSON med följande struktur:
 ```
